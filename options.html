@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>FA Super Scheduler PRO — Settings</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:      #151e2d;
+            --bg2:     #1d2b3e;
+            --bg3:     #263346;
+            --bg4:     #2f3e52;
+            --border:  #344d6a;
+            --accent:  #ffab52;
+            --accent2: #ff7c3a;
+            --danger:  #e04444;
+            --success: #4caf7d;
+            --warn:    #f0a030;
+            --text:    #dce8f5;
+            --muted:   #6a8aaa;
+            --r:       8px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-size: 13px;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            background: linear-gradient(135deg, var(--bg2), var(--bg3));
+            border-bottom: 2px solid var(--accent);
+            padding: 18px 32px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .page-header h1 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .page-header .subtitle {
+            font-size: 11px;
+            color: var(--muted);
+            margin-left: auto;
+        }
+        .lang-switcher {
+            display: flex;
+            gap: 4px;
+            background: var(--bg4);
+            border-radius: 20px;
+            padding: 3px;
+        }
+        .lang-btn {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 16px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all .15s;
+        }
+        .lang-btn.active {
+            background: var(--accent);
+            color: #1a1a1a;
+        }
+
+        /* ── CONTENT ── */
+        .page-content {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ── SECTION ── */
+        .opt-section {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            overflow: hidden;
+        }
+        .opt-section-header {
+            padding: 12px 16px;
+            background: var(--bg3);
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+        .opt-section-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* ── ROW ── */
+        .opt-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .opt-row-label {
+            flex: 1;
+            min-width: 0;
+        }
+        .opt-row-label strong {
+            display: block;
+            font-size: 13px;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+        .opt-row-label small {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+        .opt-row-control {
+            flex-shrink: 0;
+        }
+
+        /* ── INPUTS ── */
+        input[type="number"], input[type="text"], select {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 13px;
+            padding: 7px 10px;
+            outline: none;
+            transition: border-color .15s;
+            font-family: inherit;
+        }
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus { border-color: var(--accent); }
+        input[type="number"] { width: 90px; }
+        select { cursor: pointer; min-width: 160px; }
+        select option { background: var(--bg3); }
+
+        /* ── TOGGLE SWITCH ── */
+        .toggle {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+
+            transform: scale(1.25); 
+            transform-origin: right center; 
+            margin-right: 5px; 
+        }
+        .toggle input { display: none; }
+        .toggle-track {
+            position: absolute;
+            inset: 0;
+            background: var(--bg4);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background .2s, border-color .2s;
+        }
+        .toggle-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 16px;
+            height: 16px;
+            background: var(--muted);
+            border-radius: 50%;
+            transition: transform .2s, background .2s;
+            pointer-events: none;
+        }
+        .toggle input:checked ~ .toggle-track { background: var(--accent); border-color: var(--accent); }
+        .toggle input:checked ~ .toggle-track .toggle-thumb {
+            transform: translateX(20px);
+            background: #1a1a1a;
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity .15s, transform .1s;
+        }
+        .btn:hover { opacity: .88; transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #111; }
+        .btn-danger  { background: transparent; border: 1px solid var(--danger); color: var(--danger); }
+        .btn-danger:hover { background: var(--danger); color: #fff; }
+        .btn-ghost   { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+
+        .sep { border: none; border-top: 1px solid var(--border); }
+
+        /* ── DANGER ZONE ── */
+        .danger-zone .opt-section-header { color: var(--danger); }
+        .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        /* ── SAVE BAR ── */
+        .save-bar {
+            position: sticky;
+            bottom: 0;
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 100%;
+        }
+        .save-bar .inner {
+            max-width: 680px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        #saveStatus {
+            font-size: 12px;
+            color: var(--success);
+            font-weight: 700;
+            min-width: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <span style="font-size:22px">🚀</span>
+        <h1 data-i18n="opt_heading">⚙️ Settings</h1>
+        <span class="subtitle">FA Super Scheduler PRO</span>
+        <div class="lang-switcher">
+            <button class="lang-btn" data-lang="uk" id="langUk">🇺🇦 UA</button>
+            <button class="lang-btn" data-lang="en" id="langEn">🇬🇧 EN</button>
+        </div>
+    </div>
+
+    <div class="page-content">
+
+        <!-- ── SECTION: LANGUAGE (shown here too for completeness) ── -->
+        <div class="opt-section">
+            <div class="opt-section-header" data-i18n="opt_lang">Interface Language</div>
+            <div class="opt-section-body">
+                <div class="opt-row">
+                    <div class="opt-row-label">
+                        <strong data-i18n="opt_lang">Interface Language</strong>
+                        <small>🇺🇦 Українська / 🇬🇧 English</small>
+                    </div>
+                    <div class="opt-row-control">
+                        <div class="lang-switcher">
+                            <button class="lang-btn" data-lang="uk" id="langUk2">🇺🇦 UA</button>
+                            <button class="lang-btn" data-lang="en" id="langEn2">🇬🇧 EN</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SECTION: UPLOAD OPTIONS ── -->
+        <div class="opt-section">
+            <div class="opt-section-header">Upload</div>
+            <div class="opt-section-body">
+                <!-- Signature -->
+                <div class="opt-row">
+                    <div class="opt-row-label">
+                        <strong data-i18n="opt_signature">Append signature to description</strong>
+                        <small data-i18n="opt_signature_hint">Adds "Uploaded via FA Super Scheduler" and a GitHub link at the end of every description.</small>
+                    </div>
+                    <div class="opt-row-control">
+                        <label class="toggle">
+                            <input type="checkbox" id="optSignature" checked>
+                            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <hr class="sep">
+
+                <!-- Min gap -->
+                <div class="opt-row">
+                    <div class="opt-row-label">
+                        <strong data-i18n="opt_min_gap">Minimum pause between uploads (sec, min 40)</strong>
+                        <small>40–3600 сек. Захист від бану FA.</small>
+                    </div>
+                    <div class="opt-row-control">
+                        <input type="number" id="optMinGap" value="45" min="40" max="3600" step="5">
+                    </div>
+                </div>
+
+                <hr class="sep">
+
+                <!-- Max attempts -->
+                <div class="opt-row">
+                    <div class="opt-row-label">
+                        <strong data-i18n="opt_max_attempts">Max upload attempts (default: 3)</strong>
+                        <small>1–10. Після досягнення — файл пропускається.</small>
+                    </div>
+                    <div class="opt-row-control">
+                        <input type="number" id="optMaxAttempts" value="3" min="1" max="10" step="1">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ── SECTION: DANGER ZONE ── -->
+        <div class="opt-section danger-zone">
+            <div class="opt-section-header" data-i18n="opt_danger_zone">🔴 Danger Zone</div>
+            <div class="opt-section-body">
+                <div class="btn-row">
+                    <button class="btn btn-danger" id="btnClearQueue" data-i18n="opt_clear_queue">Clear Queue</button>
+                    <button class="btn btn-danger" id="btnClearAll" data-i18n="opt_clear_all">Reset All Data</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── VERSION ── -->
+        <div style="text-align:center; font-size:11px; color:var(--muted); padding-bottom:60px;">
+            FA Super Scheduler PRO &nbsp;·&nbsp;
+            <a href="https://github.com/GhostInShell777/FA-Super-Scheduller" target="_blank"
+               style="color:var(--accent); text-decoration:none;">GitHub ↗</a>
+        </div>
+
+    </div>
+
+    <!-- Sticky save bar -->
+    <div class="save-bar">
+        <div class="inner">
+            <button class="btn btn-primary" id="btnSave" data-i18n="opt_save">💾 Save Settings</button>
+            <span id="saveStatus"></span>
+        </div>
+    </div>
+
+    <script src="scripts/i18n.js"></script>
+    <script src="scripts/options.js"></script>
+</body>
+</html>

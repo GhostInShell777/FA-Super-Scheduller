@@ -1,0 +1,1679 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #151e2d;
+            --bg2: #1d2b3e;
+            --bg3: #263346;
+            --bg4: #2f3e52;
+            --border: #344d6a;
+            --accent: #ffab52;
+            --accent2: #ff7c3a;
+            --danger: #e04444;
+            --success: #4caf7d;
+            --warn: #f0a030;
+            --text: #dce8f5;
+            --muted: #6a8aaa;
+            --r: 6px;
+        }
+
+        body {
+            width: 500px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-size: 12px;
+            overflow-x: hidden;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            background: linear-gradient(135deg, var(--bg2), var(--bg3));
+            border-bottom: 2px solid var(--accent);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .header h3 {
+                font-size: 13px;
+                font-weight: 800;
+                color: var(--accent);
+                letter-spacing: 0.4px;
+            }
+
+        .header-status {
+            margin-left: auto;
+            font-size: 10px;
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .status-idle {
+            background: #1c2d1c;
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-running {
+            background: #2d1e10;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%,100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .6
+            }
+        }
+
+        /* ── TABS ── */
+        .tabs {
+            display: flex;
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 8px 0;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .15s;
+            letter-spacing: .3px;
+        }
+
+            .tab-btn:hover {
+                color: var(--text);
+            }
+
+            .tab-btn.active {
+                color: var(--accent);
+                border-bottom-color: var(--accent);
+            }
+
+        .tab-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #1a1a1a;
+            border-radius: 10px;
+            padding: 0 5px;
+            font-size: 9px;
+            font-weight: 900;
+            margin-left: 4px;
+        }
+
+        /* ── PANELS & CONTENT ── */
+        .tab-content {
+            padding: 12px;
+            height: 420px; /* Фіксована висота */
+            overflow: visible; /* Дозволяє випадаючим спискам виходити за межі */
+        }
+
+        .tab-panel {
+            display: none;
+            height: 100%;
+            overflow: visible; /* Щоб контент всередині панелі не обрізався */
+        }
+
+            .tab-panel.active {
+                display: block;
+            }
+
+        .form-body {
+            padding: 12px;
+        }
+
+        /* ── FIELDS ── */
+        .field-wrap {
+            margin-bottom: 9px;
+        }
+
+        .field-label {
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            margin-bottom: 3px;
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            color: var(--text);
+            font-size: 12px;
+            padding: 6px 8px;
+            outline: none;
+            transition: border-color .15s;
+            font-family: inherit;
+        }
+
+            input[type="text"]:focus, textarea:focus, select:focus {
+                border-color: var(--accent);
+            }
+
+            input.err, textarea.err {
+                border-color: var(--danger) !important;
+            }
+
+        textarea {
+            resize: vertical;
+            min-height: 54px;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+            select option {
+                background: var(--bg3);
+            }
+
+        .counter-wrap {
+            position: relative;
+        }
+
+        .char-counter {
+            position: absolute;
+            right: 7px;
+            bottom: 7px;
+            font-size: 9px;
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+            .char-counter.warn {
+                color: var(--warn);
+            }
+
+            .char-counter.over {
+                color: var(--danger);
+                font-weight: 800;
+            }
+
+        .row2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        /* Rating */
+        .rating-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .rating-btn {
+            flex: 1;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 6px 4px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
+            transition: all .15s;
+            user-select: none;
+        }
+
+            .rating-btn input {
+                display: none;
+            }
+
+            .rating-btn:hover {
+                border-color: var(--accent);
+            }
+
+        .rb-g {
+            border-color: var(--success) !important;
+            color: var(--success) !important;
+            background: #172919 !important;
+        }
+
+        .rb-m {
+            border-color: var(--warn) !important;
+            color: var(--warn) !important;
+            background: #2b2010 !important;
+        }
+
+        .rb-a {
+            border-color: var(--danger) !important;
+            color: var(--danger) !important;
+            background: #2b1212 !important;
+        }
+
+        /* Gender */
+        .gender-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 3px;
+        }
+
+        .gender-item label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            transition: all .12s;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+            .gender-item label:hover {
+                background: var(--bg4);
+                color: var(--text);
+            }
+
+        .gender-item input {
+            accent-color: var(--accent);
+        }
+
+        /* Checkboxes */
+        .check-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--text);
+        }
+
+            .check-label input {
+                accent-color: var(--accent);
+                width: 14px;
+                height: 14px;
+            }
+
+        /* File drop */
+        .file-drop {
+            border: 2px dashed var(--border);
+            border-radius: var(--r);
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            background: var(--bg3);
+            position: relative;
+            transition: border-color .2s;
+        }
+
+            .file-drop:hover {
+                border-color: var(--accent);
+            }
+
+            .file-drop input {
+                position: absolute;
+                inset: 0;
+                opacity: 0;
+                cursor: pointer;
+                width: 100%;
+                height: 100%;
+            }
+
+            .file-drop .drop-icon {
+                font-size: 22px;
+            }
+
+            .file-drop .drop-hint {
+                color: var(--muted);
+                font-size: 11px;
+                margin-top: 3px;
+            }
+
+        #fileCount {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 11px;
+            margin-top: 4px;
+            min-height: 16px;
+        }
+
+        input[type="datetime-local"] {
+            color-scheme: dark;
+        }
+
+            input[type="datetime-local"]:focus {
+                border-color: var(--accent) !important;
+                outline: none;
+            }
+
+        .popup-lang-btn.active {
+            background: var(--accent) !important;
+            color: #1a1a1a !important;
+        }
+
+        .sep {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 10px 0;
+        }
+
+        .hint-text {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: var(--r);
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: opacity .15s, transform .1s;
+            letter-spacing: .2px;
+        }
+
+            .btn:hover:not(:disabled) {
+                opacity: .88;
+                transform: translateY(-1px);
+            }
+
+            .btn:active:not(:disabled) {
+                transform: translateY(0);
+            }
+
+            .btn:disabled {
+                opacity: .4;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg,var(--accent),var(--accent2));
+            color: #111;
+            margin-top: 4px;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg,#3a9e68,#2d7a50);
+            color: #fff;
+        }
+
+        .btn-danger {
+            background: transparent;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+        }
+
+            .btn-danger:hover:not(:disabled) {
+                background: var(--danger);
+                color: #fff;
+            }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+            .btn-ghost:hover:not(:disabled) {
+                border-color: var(--text);
+                color: var(--text);
+            }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 11px;
+        }
+
+        .btn-icon {
+            padding: 5px 7px;
+            font-size: 13px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--muted);
+            transition: all .15s;
+            line-height: 1;
+        }
+
+            .btn-icon:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+            }
+
+            .btn-icon.del:hover {
+                border-color: var(--danger);
+                color: var(--danger);
+            }
+
+        /* ── QUEUE PANEL ── */
+        .queue-panel {
+            padding: 12px;
+        }
+
+        .queue-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+            .queue-toolbar h4 {
+                font-size: 12px;
+                color: var(--accent);
+                flex: 1;
+            }
+
+        .scroll-box {
+            max-height: 360px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+
+            .scroll-box::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            .scroll-box::-webkit-scrollbar-track {
+                background: var(--bg2);
+            }
+
+            .scroll-box::-webkit-scrollbar-thumb {
+                background: var(--border);
+                border-radius: 2px;
+            }
+
+        /* Queue item */
+        .q-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 8px 10px;
+            margin-bottom: 5px;
+            transition: border-color .15s;
+        }
+
+            .q-item:hover {
+                border-color: var(--bg4);
+            }
+
+        .q-num {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--muted);
+            min-width: 16px;
+            text-align: center;
+        }
+
+        .q-thumb-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 5px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--bg4);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .q-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .q-thumb-placeholder {
+            font-size: 20px;
+        }
+
+        .q-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .q-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .q-meta {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .q-badges {
+            display: flex;
+            gap: 3px;
+            margin-top: 3px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1px 5px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+        .badge-g {
+            background: #172919;
+            color: var(--success);
+        }
+
+        .badge-m {
+            background: #2b2010;
+            color: var(--warn);
+        }
+
+        .badge-a {
+            background: #2b1212;
+            color: var(--danger);
+        }
+
+        .badge-s {
+            background: #1a2030;
+            color: #6ab0f5;
+        }
+
+        .badge-f {
+            background: #25183a;
+            color: #c09af0;
+        }
+
+        .badge-t {
+            background: #1e2a1e;
+            color: #8ec88e;
+        }
+
+        .q-actions {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .empty-hint {
+            text-align: center;
+            color: var(--muted);
+            padding: 30px 0;
+            font-size: 11px;
+        }
+
+        /* Warning */
+        #warningArea {
+            min-height: 4px;
+        }
+
+        .warn-item {
+            margin: 5px 0;
+            border-radius: var(--r);
+            font-size: 11px;
+            text-align: center;
+            padding: 8px;
+            animation: slideIn .2s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-4px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* ── MODAL ── */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.75);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .modal-backdrop.open {
+                display: flex;
+            }
+
+        .modal {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            width: 468px;
+            max-height: 92vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 64px rgba(0,0,0,.7);
+            animation: modalIn .2s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(.95) translateY(8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0)
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg,var(--bg2),var(--bg3));
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .modal-title {
+            flex: 1;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--accent);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 20px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 2px;
+        }
+
+            .modal-close:hover {
+                color: var(--danger);
+            }
+
+        .modal-body {
+            padding: 14px;
+        }
+
+        .modal-footer {
+            padding: 10px 14px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            position: sticky;
+            bottom: 0;
+            background: var(--bg2);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span style="font-size:18px">🦊</span>
+        <h3>FA Super Scheduler PRO</h3>
+        <!-- Language switcher -->
+        <div style="display:flex;gap:3px;background:var(--bg4);border-radius:20px;padding:3px;margin-left:auto;">
+            <button class="popup-lang-btn" data-lang="uk"
+                    style="padding:3px 9px;border:none;border-radius:16px;background:transparent;color:var(--muted);cursor:pointer;font-size:12px;font-weight:700;transition:all .15s;"
+                    id="popLangUk">
+                🇺🇦
+            </button>
+            <button class="popup-lang-btn" data-lang="en"
+                    style="padding:3px 9px;border:none;border-radius:16px;background:transparent;color:var(--muted);cursor:pointer;font-size:12px;font-weight:700;transition:all .15s;"
+                    id="popLangEn">
+                🇬🇧
+            </button>
+        </div>
+        <!-- Options page link -->
+        <button id="btnOpenOptions" title="Settings"
+                style="padding:4px 8px;background:transparent;border:1px solid var(--border);border-radius:var(--r);color:var(--muted);cursor:pointer;font-size:13px;transition:all .15s;"
+                onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'"
+                onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+            ⚙️
+        </button>
+        <span class="header-status status-idle" id="headerStatus">⏸ Idle</span>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="add" data-i18n="tab_add">➕ Додати</button>
+        <button class="tab-btn" data-tab="queue" data-i18n-prefix="tab_queue">📋 Черга <span class="tab-badge" id="queueBadge" style="display:none">0</span></button>
+    </div>
+
+    <!-- ══════ TAB: ADD ══════ -->
+    <div class="tab-panel active" id="tab-add">
+        <div class="form-body">
+
+            <div class="field-wrap">
+                <div class="file-drop" id="fileDrop">
+                    <input type="file" id="fileInput" multiple accept="image/*">
+                    <div class="drop-icon">🖼️</div>
+                    <div class="drop-hint" data-i18n="hint_drop">Натисни або перетягни файли сюди</div>
+                    <div id="fileCount"></div>
+                </div>
+            </div>
+
+            <div class="field-wrap">
+                <label class="field-label"><span data-i18n="label_title">Назва</span> <small style="font-weight:400" data-i18n="hint_title_max">(макс. 60)</small></label>
+                <div class="counter-wrap">
+                    <input type="text" id="commonTitle" placeholder="Назва арту..." maxlength="60">
+                    <span class="char-counter" id="titleCounter">0/60</span>
+                </div>
+            </div>
+
+            <div class="field-wrap">
+                <label class="field-label" data-i18n="label_desc">Опис</label>
+                <div class="counter-wrap">
+                    <textarea id="commonDesc" placeholder="Опис для всіх артів..." maxlength="65000" rows="3"></textarea>
+                    <span class="char-counter" id="descCounter">0/65000</span>
+                </div>
+            </div>
+
+            <div class="field-wrap">
+                <label class="field-label"><span data-i18n="label_keywords">Keywords</span> <small style="font-weight:400" data-i18n="hint_keywords">(через пробіл, мін. 3)</small></label>
+                <div class="counter-wrap">
+                    <textarea id="commonTags" placeholder="art drawing ferret..." maxlength="500" rows="2"></textarea>
+                    <span class="char-counter" id="tagsCounter">0/500</span>
+                </div>
+            </div>
+
+            <div style="grid-column: 1 / -1; margin-top: -8px; margin-bottom: 4px;">
+                <span style="color: var(--muted); font-style: italic; font-size: 10px; line-height: 1.2;">
+                    * Більше специфічних видів (Species) можна обрати для кожного арту окремо вже у вкладці "Черга".
+                </span>
+            </div>
+
+            <div class="row2">
+                <div class="field-wrap">
+                    <label class="field-label" data-i18n="label_category">Категорія</label>
+                    <select id="commonCat">
+                        <optgroup label="Visual Art">
+                            <option value="1" selected>All</option>
+                            <option value="2">Artwork (Digital)</option>
+                            <option value="3">Artwork (Traditional)</option>
+                            <option value="4">Cel Shading</option>
+                            <option value="5">Crafting</option>
+                            <option value="6">Designs</option>
+                            <option value="8">Fursuiting</option>
+                            <option value="9">Icons</option>
+                            <option value="10">Mosaics</option>
+                            <option value="11">Photography</option>
+                            <option value="36">Pixel Art</option>
+                            <option value="12">Sculpting</option>
+                            <option value="34">3D Models</option>
+                            <option value="35">Virtual Photography</option>
+                        </optgroup>
+                        <optgroup label="Animation &amp; Media">
+                            <option value="37">2D Animation</option>
+                            <option value="38">3D Animation</option>
+                            <option value="7">Flash</option>
+                        </optgroup>
+                        <optgroup label="Other Stuff">
+                            <option value="21">Adoptables</option>
+                            <option value="22">Auctions</option>
+                            <option value="23">Contests</option>
+                            <option value="28">Scraps</option>
+                            <option value="29">Wallpaper</option>
+                            <option value="30">YCH / Sale</option>
+                            <option value="31">Other</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="field-wrap">
+                    <label class="field-label" data-i18n="label_theme">Тема</label>
+                    <select id="commonTheme">
+                        <optgroup label="General">
+                            <option value="1" selected>All</option>
+                            <option value="2">Abstract</option>
+                            <option value="3">Animal (non-anthro)</option>
+                            <option value="4">Anime</option>
+                            <option value="5">Comics</option>
+                            <option value="6">Doodle</option>
+                            <option value="7">Fanart</option>
+                            <option value="8">Fantasy</option>
+                            <option value="9">Human</option>
+                            <option value="10">Portraits</option>
+                            <option value="11">Scenery</option>
+                            <option value="14">Miscellaneous</option>
+                        </optgroup>
+                        <optgroup label="Specialty">
+                            <option value="100">General Furry Art</option>
+                            <option value="122">ABDL</option>
+                            <option value="101">Baby fur</option>
+                            <option value="102">Bondage</option>
+                            <option value="104">Fat Furs</option>
+                            <option value="106">Fursuit</option>
+                            <option value="119">Gore / Macabre</option>
+                            <option value="107">Hyper</option>
+                            <option value="109">Macro / Micro</option>
+                            <option value="111">My Little Pony</option>
+                            <option value="113">Pokemon</option>
+                            <option value="115">Sonic</option>
+                            <option value="116">Transformation</option>
+                            <option value="120">TF / TG</option>
+                            <option value="117">Vore</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row2">
+                <div class="field-wrap">
+                    <label class="field-label" data-i18n="label_species">Species</label>
+                    <select id="commonSpecies">
+                        <option value="1" selected>Unspecified / Any</option>
+                        <optgroup label="General">
+                            <option value="6017">Canine (Other)</option>
+                            <option value="6030">Feline (Other)</option>
+                            <option value="6075">Fox (Other)</option>
+                            <option value="4000">Dragon (Other)</option>
+                            <option value="6051">Mustelid (Other)</option>
+                            <option value="6000">Mammal (Other)</option>
+                            <option value="6067">Rodent (Other)</option>
+                            <option value="3000">Avian (Other)</option>
+                            <option value="10002">Hybrid Species</option>
+                            <option value="10007">Goo / Slime</option>
+                            <option value="5000">Exotic (Other)</option>
+                        </optgroup>
+                        <optgroup label="Fandom">
+                            <option value="11014">Original Species</option>
+                            <option value="11015">Fan Species / Character</option>
+                            <option value="11002">Angel Dragon</option>
+                            <option value="11003">Dutch Angel Dragon</option>
+                            <option value="11004">Ferrin</option>
+                            <option value="11007">Protogen</option>
+                            <option value="5021">Sergal</option>
+                        </optgroup>
+                        <optgroup label="Mythological">
+                            <option value="12007">Demon</option>
+                            <option value="4001">Eastern Dragon</option>
+                            <option value="4004">Western Dragon</option>
+                            <option value="12022">Kitsune</option>
+                            <option value="12036">Werewolf</option>
+                            <option value="5023">Unicorn</option>
+                        </optgroup>
+                        <optgroup label="Animals">
+                            <option value="6046">Ferret</option>
+                            <option value="6016">Wolf</option>
+                            <option value="6020">Housecat</option>
+                            <option value="6014">Husky</option>
+                            <option value="6072">Fennec</option>
+                            <option value="14009">Arctic Fox</option>
+                            <option value="6047">Otter</option>
+                            <option value="6048">Mink</option>
+                            <option value="6049">Weasel</option>
+                            <option value="6062">Red Panda</option>
+                            <option value="6059">Rabbit / Hare</option>
+                            <option value="6060">Raccoon</option>
+                            <option value="6061">Rat</option>
+                            <option value="6065">Mouse</option>
+                            <option value="6001">Bat</option>
+                            <option value="6021">Cheetah</option>
+                            <option value="6025">Lion</option>
+                            <option value="6026">Lynx</option>
+                            <option value="6029">Tiger</option>
+                            <option value="3004">Eagle</option>
+                            <option value="3009">Owl</option>
+                            <option value="2006">Shark</option>
+                            <option value="2002">Dolphin</option>
+                            <option value="7006">Snake / Serpent</option>
+                            <option value="6055">Human</option>
+                            <option value="14058">Humanoid</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="field-wrap">
+                    <label class="field-label"><span data-i18n="label_gender">Gender</span> <small style="font-weight:400" data-i18n="hint_gender">(→ keywords)</small></label>
+                    <div class="gender-grid">
+                        <div class="gender-item"><label><input type="checkbox" class="g-check" value="male"><span>Male</span></label></div>
+                        <div class="gender-item"><label><input type="checkbox" class="g-check" value="female"><span>Female</span></label></div>
+                        <div class="gender-item"><label><input type="checkbox" class="g-check" value="intersex"><span>Intersex</span></label></div>
+                        <div class="gender-item"><label><input type="checkbox" class="g-check" value="non_binary"><span>Non-binary</span></label></div>
+                        <div class="gender-item"><label><input type="checkbox" class="g-check" value="trans_male"><span>Trans ♂</span></label></div>
+                        <div class="gender-item"><label><input type="checkbox" class="g-check" value="trans_female"><span>Trans ♀</span></label></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-wrap">
+                <label class="field-label" data-i18n="label_rating">Рейтинг</label>
+                <div class="rating-group" id="ratingGroup">
+                    <label class="rating-btn"><input type="radio" name="rating" value="0"> <span data-i18n="rating_general">🟢 General</span></label>
+                    <label class="rating-btn"><input type="radio" name="rating" value="2"> <span data-i18n="rating_mature">🟡 Mature</span></label>
+                    <label class="rating-btn"><input type="radio" name="rating" value="1"> <span data-i18n="rating_adult">🔴 Adult</span></label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="row2">
+                <div class="field-wrap">
+                    <label class="field-label" data-i18n="label_folder">Нова папка (назва)</label>
+                    <input type="text" id="commonFolder" data-i18n-placeholder="hint_folder_placeholder" placeholder="Назва або порожньо">
+                    <div class="hint-text" data-i18n="hint_folder">FA створить нову папку</div>
+                </div>
+                <div class="field-wrap">
+                    <label class="field-label" data-i18n="label_params">Параметри</label>
+                    <div style="display:flex;flex-direction:column;gap:8px;padding-top:4px">
+                        <label class="check-label"><input type="checkbox" id="optScraps"> <span data-i18n="opt_scraps">📦 Scraps</span></label>
+                        <label class="check-label"><input type="checkbox" id="optLockComments"> <span data-i18n="opt_comments">🔇 Вимкнути коменти</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-wrap">
+                <label class="field-label" data-i18n="label_gap">Затримка між файлами</label>
+                <select id="uploadGap">
+                    <option value="35000" data-i18n="gap_35s">35 секунд (мінімум)</option>
+                    <option value="45000" selected data-i18n="gap_45s">45 секунд (рекомендовано)</option>
+                    <option value="60000" data-i18n="gap_1m">1 хвилина</option>
+                    <option value="120000" data-i18n="gap_2m">2 хвилини</option>
+                    <option value="300000" data-i18n="gap_5m">5 хвилин</option>
+                    <option value="600000" data-i18n="gap_10m">10 хвилин</option>
+                    <option value="1800000" data-i18n="gap_30m">30 хвилин</option>
+                    <option value="3600000" data-i18n="gap_1h">1 година</option>
+                </select>
+            </div>
+
+            <div id="warningArea"></div>
+            <button id="addToQueue" class="btn btn-primary" data-i18n="btn_add_queue">➕ ДОДАТИ ДО ЧЕРГИ</button>
+
+        </div>
+    </div>
+
+    <!-- ══════ TAB: QUEUE ══════ -->
+    <div class="tab-panel" id="tab-queue">
+        <div class="queue-panel">
+
+            <div class="queue-toolbar">
+                <h4 id="queueTitle" data-i18n="queue_title">Черга</h4>
+                <button id="btnStart" class="btn btn-success btn-sm" data-i18n="btn_start">▶ Запустити</button>
+                <button id="btnStop" class="btn btn-ghost   btn-sm" style="display:none" data-i18n="btn_pause">⏸ Пауза</button>
+                <button id="btnClear" class="btn btn-danger  btn-sm" data-i18n="btn_clear">🗑</button>
+            </div>
+
+            <!-- ── ПЛАНУВАЛЬНИК ── -->
+            <div id="schedulerBlock" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:10px;margin-bottom:10px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                    <span style="font-size:13px">🕐</span>
+                    <span style="font-size:11px;font-weight:700;color:var(--accent);" data-i18n="scheduler_title">Запланувати старт</span>
+                    <span style="font-size:10px;color:var(--muted);margin-left:auto" id="schedulerStatus" data-i18n="scheduler_none">не заплановано</span>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: flex-end;">
+                    <div class="field-wrap" style="flex: 2;">
+                        <label class="field-label" data-i18n="scheduler_label">Дата старту</label>
+                        <input type="date" id="schedDate">
+                    </div>
+                    <div class="field-wrap" style="flex: 1;">
+                        <label class="field-label">Час</label>
+                        <input type="time" id="schedTime">
+                    </div>
+                    <button id="btnSchedule" class="btn btn-sm" style="background:var(--bg4);border:1px solid var(--border);color:var(--text);white-space:nowrap;" data-i18n="btn_schedule">📅 Підтвердити</button>
+                    <button id="btnCancelSchedule" class="btn btn-sm btn-danger" style="display:none;white-space:nowrap;" data-i18n="btn_cancel_schedule">✕ Скасувати</button>
+                </div>
+                <div id="schedulerCountdown" style="display:none;margin-top:8px;text-align:center;font-size:12px;font-weight:700;color:var(--warn);letter-spacing:0.5px;"></div>
+                <div style="margin-top:6px;font-size:9px;color:var(--muted);line-height:1.4">
+                    ⚠️ Не рекомендується планувати більше ніж на 1 день вперед — поведінка браузера при тривалому сні невідома. Якщо "Запустити" натиснуто без таймеру — старт відбувається негайно.
+                </div>
+                <div style="color: var(--warn); font-size: 11px; margin-top: 4px; padding: 4px; border-left: 2px solid var(--warn); background: rgba(240, 160, 48, 0.1);">
+                    ⚠️ Краще не закривати вкладку FA submit, програма працює непередбачувано.
+                </div>
+            </div>
+
+            <div class="scroll-box" id="queueList"></div>
+
+        </div>
+    </div>
+
+    <!-- ══════ MODAL: EDIT ══════ -->
+    <div class="modal-backdrop" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span style="font-size:16px">✏️</span>
+                <div class="modal-title" id="modalTitle">Редагувати</div>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="field-wrap">
+                    <label class="field-label">Назва</label>
+                    <div class="counter-wrap">
+                        <input type="text" id="mTitle" maxlength="60">
+                        <span class="char-counter" id="mTitleCounter">0/60</span>
+                    </div>
+                </div>
+
+                <div class="field-wrap">
+                    <label class="field-label">Опис</label>
+                    <div class="counter-wrap">
+                        <textarea id="mDesc" rows="4" maxlength="65000"></textarea>
+                        <span class="char-counter" id="mDescCounter">0/65000</span>
+                    </div>
+                </div>
+
+                <div class="field-wrap">
+                    <label class="field-label">Keywords</label>
+                    <div class="counter-wrap">
+                        <textarea id="mTags" rows="2" maxlength="500"></textarea>
+                        <span class="char-counter" id="mTagsCounter">0/500</span>
+                    </div>
+                </div>
+
+                <div class="row2">
+                    <div class="field-wrap">
+                        <label class="field-label">Категорія</label>
+                        <select id="mCat">
+                            <optgroup label="Visual Art">
+                                <option value="1" selected="selected">All</option>
+                                <option value="34">3D Models</option>
+                                <option value="2">Artwork (Digital)</option>
+                                <option value="3">Artwork (Traditional)</option>
+                                <option value="4">Cel Shading</option>
+                                <option value="5">Crafting</option>
+                                <option value="6">Designs</option>
+                                <option value="32">Food / Recipes</option>
+                                <option value="8">Fursuiting</option>
+                                <option value="9">Icons</option>
+                                <option value="10">Mosaics</option>
+                                <option value="11">Photography</option>
+                                <option value="36">Pixel Art</option>
+                                <option value="12">Sculpting</option>
+                                <option value="35">Virtual Photography</option>
+                            </optgroup>
+                            <optgroup label="Animation & Media">
+                                <option value="37">2D Animation</option>
+                                <option value="38">3D Animation</option>
+                                <option value="39">Pixel Animation</option>
+                                <option value="7">Flash</option>
+                                <option value="40">Interactive Media</option>
+                            </optgroup>
+                            <optgroup label="Readable Art">
+                                <option value="13">Story</option>
+                                <option value="14">Poetry</option>
+                                <option value="15">Prose</option>
+                            </optgroup>
+                            <optgroup label="Audio Art">
+                                <option value="16">Music</option>
+                                <option value="17">Podcasts</option>
+                            </optgroup>
+                            <optgroup label="Downloadable">
+                                <option value="18">Skins</option>
+                                <option value="19">Handhelds</option>
+                                <option value="20">Resources</option>
+                            </optgroup>
+                            <optgroup label="Other Stuff">
+                                <option value="21">Adoptables</option>
+                                <option value="22">Auctions</option>
+                                <option value="23">Contests</option>
+                                <option value="24">Current Events</option>
+                                <option value="26">Stockart</option>
+                                <option value="27">Screenshots</option>
+                                <option value="28">Scraps</option>
+                                <option value="29">Wallpaper</option>
+                                <option value="30">YCH / Sale</option>
+                                <option value="31">Other</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="field-wrap">
+                        <label class="field-label">Тема</label>
+                        <select id="mTheme">
+                            <optgroup label="General Things">
+                                <option value="1" selected="selected">All</option>
+                                <option value="2">Abstract</option>
+                                <option value="3">Animal related (non-anthro)</option>
+                                <option value="4">Anime</option>
+                                <option value="5">Comics</option>
+                                <option value="6">Doodle</option>
+                                <option value="7">Fanart</option>
+                                <option value="8">Fantasy</option>
+                                <option value="9">Human</option>
+                                <option value="10">Portraits</option>
+                                <option value="11">Scenery</option>
+                                <option value="12">Still Life</option>
+                                <option value="13">Tutorials</option>
+                                <option value="14">Miscellaneous</option>
+                            </optgroup>
+                            <optgroup label="Specialty">
+                                <option value="100">General Furry Art</option>
+                                <option value="122">ABDL</option>
+                                <option value="101">Baby fur</option>
+                                <option value="102">Bondage</option>
+                                <option value="103">Digimon</option>
+                                <option value="104">Fat Furs</option>
+                                <option value="105">Fetish Other</option>
+                                <option value="106">Fursuit</option>
+                                <option value="119">Gore / Macabre Art</option>
+                                <option value="107">Hyper</option>
+                                <option value="121">Hypnosis</option>
+                                <option value="108">Inflation</option>
+                                <option value="109">Macro / Micro</option>
+                                <option value="110">Muscle</option>
+                                <option value="111">My Little Pony / Brony</option>
+                                <option value="112">Paw</option>
+                                <option value="113">Pokemon</option>
+                                <option value="114">Pregnancy</option>
+                                <option value="115">Sonic</option>
+                                <option value="116">Transformation</option>
+                                <option value="120">TF / TG</option>
+                                <option value="117">Vore</option>
+                                <option value="118">Water Sports</option>
+                            </optgroup>
+                            <optgroup label="Music">
+                                <option value="201">Techno</option>
+                                <option value="202">Trance</option>
+                                <option value="203">House</option>
+                                <option value="204">90s</option>
+                                <option value="205">80s</option>
+                                <option value="206">70s</option>
+                                <option value="207">60s</option>
+                                <option value="208">Pre-60s</option>
+                                <option value="209">Classical</option>
+                                <option value="210">Game Music</option>
+                                <option value="211">Rock</option>
+                                <option value="212">Pop</option>
+                                <option value="213">Rap</option>
+                                <option value="214">Industrial</option>
+                                <option value="200">Other Music</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row2">
+                    <div class="field-wrap">
+                        <label class="field-label">Species</label>
+                        <select id="mSpecies">
+                            <option value="1" selected="selected">Unspecified / Any</option>
+                            <optgroup label="General">
+                                <option value="10001">Airborne Vehicle</option>
+                                <option value="5001">Alien (Other)</option>
+                                <option value="1000">Amphibian (Other)</option>
+                                <option value="2000">Aquatic (Other)</option>
+                                <option value="3000">Avian (Other)</option>
+                                <option value="6002">Bear (Other)</option>
+                                <option value="6007">Bovine (Other)</option>
+                                <option value="6017">Canine (Other)</option>
+                                <option value="6018">Cervine (Other)</option>
+                                <option value="6010">Dog (Other)</option>
+                                <option value="4000">Dragon (Other)</option>
+                                <option value="10009">Equine (Other)</option>
+                                <option value="5000">Exotic (Other)</option>
+                                <option value="6030">Feline (Other)</option>
+                                <option value="6075">Fox (Other)</option>
+                                <option value="10007">Goo / Slime</option>
+                                <option value="10002">Hybrid Species</option>
+                                <option value="10006">Inanimate</option>
+                                <option value="8003">Insect (Other)</option>
+                                <option value="10003">Land Vehicle</option>
+                                <option value="6000">Mammal (Other)</option>
+                                <option value="6042">Marsupial (Other)</option>
+                                <option value="6051">Mustelid (Other)</option>
+                                <option value="10008">Plant / Fungus</option>
+                                <option value="6058">Primate (Other)</option>
+                                <option value="7000">Reptilian (Other)</option>
+                                <option value="10004">Robot / Android / Cyborg</option>
+                                <option value="6067">Rodent (Other)</option>
+                                <option value="10005">Sea Vehicle</option>
+                                <option value="5025">Taur (Other)</option>
+                                <option value="6015">Vulpine (Other)</option>
+                            </optgroup>
+                            <optgroup label="Fandom Creations">
+                                <option value="11014">Original Species</option>
+                                <option value="11015">Fan Species / Character</option>
+                                <option value="11001">Aeromorph</option>
+                                <option value="11002">Angel Dragon</option>
+                                <option value="11012">Avali</option>
+                                <option value="5003">Chakat</option>
+                                <option value="5005">Citra</option>
+                                <option value="5006">Crux</option>
+                                <option value="5009">Dracat</option>
+                                <option value="11003">Dutch Angel Dragon</option>
+                                <option value="11011">Felkin</option>
+                                <option value="11004">Ferrin</option>
+                                <option value="11005">Jogauni</option>
+                                <option value="5014">Langurhali</option>
+                                <option value="11006">Nevrean</option>
+                                <option value="11007">Protogen</option>
+                                <option value="11016">Rexouium</option>
+                                <option value="5021">Sergal</option>
+                                <option value="11010">Synx</option>
+                                <option value="11013">Wickerbeast</option>
+                                <option value="11009">Yinglet</option>
+                                <option value="11008">Zorgoia</option>
+                            </optgroup>
+                            <optgroup label="Mythological / Fantasy">
+                                <option value="12001">Angel</option>
+                                <option value="12002">Centaur</option>
+                                <option value="12003">Cerberus</option>
+                                <option value="12038">Changeling / Shape Shifter</option>
+                                <option value="12004">Chimera</option>
+                                <option value="12005">Chupacabra</option>
+                                <option value="12006">Cockatrice</option>
+                                <option value="5007">Daemon</option>
+                                <option value="12007">Demon</option>
+                                <option value="12008">Displacer Beast</option>
+                                <option value="12009">Dragonborn</option>
+                                <option value="12010">Drow</option>
+                                <option value="12011">Dwarf</option>
+                                <option value="4001">Eastern Dragon</option>
+                                <option value="5011">Elf</option>
+                                <option value="5012">Gargoyle</option>
+                                <option value="12012">Goblin</option>
+                                <option value="12013">Golem</option>
+                                <option value="3007">Gryphon</option>
+                                <option value="12014">Harpy</option>
+                                <option value="12015">Hellhound</option>
+                                <option value="12016">Hippogriff</option>
+                                <option value="12017">Hobbit</option>
+                                <option value="4002">Hydra</option>
+                                <option value="12018">Imp</option>
+                                <option value="12019">Incubus</option>
+                                <option value="12020">Jackalope</option>
+                                <option value="12021">Kirin</option>
+                                <option value="12022">Kitsune</option>
+                                <option value="12023">Kobold</option>
+                                <option value="12024">Lamia</option>
+                                <option value="12025">Manticore</option>
+                                <option value="12026">Minotaur</option>
+                                <option value="5016">Naga</option>
+                                <option value="12027">Nephilim</option>
+                                <option value="5018">Orc</option>
+                                <option value="12028">Pegasus</option>
+                                <option value="12029">Peryton</option>
+                                <option value="3010">Phoenix</option>
+                                <option value="12030">Sasquatch</option>
+                                <option value="5020">Satyr</option>
+                                <option value="12031">Sphinx</option>
+                                <option value="12032">Succubus</option>
+                                <option value="12033">Tiefling</option>
+                                <option value="12034">Troll</option>
+                                <option value="5023">Unicorn</option>
+                                <option value="12035">Water Dragon</option>
+                                <option value="12036">Werewolf / Lycanthrope</option>
+                                <option value="4004">Western Dragon</option>
+                                <option value="4005">Wyvern</option>
+                                <option value="12037">Yokai</option>
+                            </optgroup>
+                            <optgroup label="Games / Media">
+                                <option value="13001">Alicorn (MLP)</option>
+                                <option value="5002">Argonian</option>
+                                <option value="13002">Asari</option>
+                                <option value="13003">Bangaa</option>
+                                <option value="13004">Bubble Dragon</option>
+                                <option value="13005">Burmecian</option>
+                                <option value="13006">Charr</option>
+                                <option value="13007">Chiss</option>
+                                <option value="5004">Chocobo</option>
+                                <option value="13008">Deathclaw</option>
+                                <option value="5008">Digimon</option>
+                                <option value="5010">Draenei</option>
+                                <option value="13009">Drell</option>
+                                <option value="13010">Elcor</option>
+                                <option value="13011">Ewok</option>
+                                <option value="13012">Hanar</option>
+                                <option value="13013">Hrothgar</option>
+                                <option value="5013">Iksar</option>
+                                <option value="5015">Kaiju / Giant Monster</option>
+                                <option value="13041">Kelpie</option>
+                                <option value="13014">Kemonomimi</option>
+                                <option value="13015">Khajiit</option>
+                                <option value="13016">Koopa</option>
+                                <option value="13017">Krogan</option>
+                                <option value="13018">Lombax</option>
+                                <option value="13019">Mimiga</option>
+                                <option value="13020">Mobian</option>
+                                <option value="5017">Moogle</option>
+                                <option value="13021">Neopet</option>
+                                <option value="13022">Nu Mou</option>
+                                <option value="5019">Pokemon</option>
+                                <option value="13023">Pony (MLP)</option>
+                                <option value="13024">Protoss</option>
+                                <option value="13025">Quarian</option>
+                                <option value="13026">Ronso</option>
+                                <option value="13027">Salarian</option>
+                                <option value="13028">Sangheili / Elites</option>
+                                <option value="13029">Tauntaun</option>
+                                <option value="13030">Tauren</option>
+                                <option value="13031">Trandoshan</option>
+                                <option value="13032">Transformer</option>
+                                <option value="13033">Turian</option>
+                                <option value="13034">Twi'lek</option>
+                                <option value="13035">Viera</option>
+                                <option value="13036">Wookiee</option>
+                                <option value="5024">Xenomorph</option>
+                                <option value="13037">Yautja / Predator</option>
+                                <option value="13038">Yordle</option>
+                                <option value="13039">Yoshi</option>
+                                <option value="13040">Zerg</option>
+                            </optgroup>
+                            <optgroup label="Animal Kingdom">
+                                <option value="14001">Aardvark</option>
+                                <option value="14002">Aardwolf</option>
+                                <option value="14003">African Wild Dog</option>
+                                <option value="14004">Akita</option>
+                                <option value="14005">Albatross</option>
+                                <option value="7001">Alligator / Crocodile</option>
+                                <option value="14006">Alpaca</option>
+                                <option value="14007">Anaconda</option>
+                                <option value="14008">Anteater</option>
+                                <option value="6004">Antelope</option>
+                                <option value="8000">Arachnid</option>
+                                <option value="14009">Arctic Fox</option>
+                                <option value="14010">Armadillo</option>
+                                <option value="14011">Axolotl</option>
+                                <option value="14012">Baboon</option>
+                                <option value="6045">Badger</option>
+                                <option value="6001">Bat</option>
+                                <option value="6064">Beaver</option>
+                                <option value="14013">Bee</option>
+                                <option value="14014">Binturong</option>
+                                <option value="14015">Bison</option>
+                                <option value="14016">Blue Jay</option>
+                                <option value="14017">Border Collie</option>
+                                <option value="14018">Brown Bear</option>
+                                <option value="14019">Buffalo</option>
+                                <option value="14020">Buffalo / Bison</option>
+                                <option value="14021">Bull Terrier</option>
+                                <option value="14022">Butterfly</option>
+                                <option value="14023">Caiman</option>
+                                <option value="6074">Camel</option>
+                                <option value="14024">Capybara</option>
+                                <option value="14025">Caribou</option>
+                                <option value="14026">Caterpillar</option>
+                                <option value="2001">Cephalopod</option>
+                                <option value="14027">Chameleon</option>
+                                <option value="6021">Cheetah</option>
+                                <option value="14028">Chicken</option>
+                                <option value="14029">Chimpanzee</option>
+                                <option value="14030">Chinchilla</option>
+                                <option value="14031">Chipmunk</option>
+                                <option value="14032">Civet</option>
+                                <option value="14033">Clouded Leopard</option>
+                                <option value="14034">Coatimundi</option>
+                                <option value="14035">Cockatiel</option>
+                                <option value="14036">Corgi</option>
+                                <option value="3001">Corvid</option>
+                                <option value="6022">Cougar / Puma</option>
+                                <option value="6003">Cow</option>
+                                <option value="6008">Coyote</option>
+                                <option value="14037">Crab</option>
+                                <option value="14038">Crane</option>
+                                <option value="14039">Crayfish</option>
+                                <option value="3002">Crow</option>
+                                <option value="14040">Crustacean</option>
+                                <option value="14041">Dalmatian</option>
+                                <option value="14042">Deer</option>
+                                <option value="14043">Dhole</option>
+                                <option value="6011">Dingo</option>
+                                <option value="8001">Dinosaur</option>
+                                <option value="6009">Doberman</option>
+                                <option value="2002">Dolphin</option>
+                                <option value="6019">Donkey / Mule</option>
+                                <option value="3003">Duck</option>
+                                <option value="3004">Eagle</option>
+                                <option value="14044">Eel</option>
+                                <option value="14045">Elephant</option>
+                                <option value="3005">Falcon</option>
+                                <option value="6072">Fennec</option>
+                                <option value="6046">Ferret</option>
+                                <option value="14046">Finch</option>
+                                <option value="2005">Fish</option>
+                                <option value="14047">Flamingo</option>
+                                <option value="14048">Fossa</option>
+                                <option value="1001">Frog</option>
+                                <option value="6005">Gazelle</option>
+                                <option value="7003">Gecko</option>
+                                <option value="14049">Genet</option>
+                                <option value="6012">German Shepherd</option>
+                                <option value="14050">Gibbon</option>
+                                <option value="6031">Giraffe</option>
+                                <option value="6006">Goat</option>
+                                <option value="3006">Goose</option>
+                                <option value="6054">Gorilla</option>
+                                <option value="14051">Gray Fox</option>
+                                <option value="14052">Great Dane</option>
+                                <option value="14053">Grizzly Bear</option>
+                                <option value="14054">Guinea Pig</option>
+                                <option value="14055">Hamster</option>
+                                <option value="3008">Hawk</option>
+                                <option value="6032">Hedgehog</option>
+                                <option value="14056">Heron</option>
+                                <option value="6033">Hippopotamus</option>
+                                <option value="14057">Honeybee / Bumblebee</option>
+                                <option value="6034">Horse</option>
+                                <option value="6020">Housecat</option>
+                                <option value="6055">Human</option>
+                                <option value="14058">Humanoid</option>
+                                <option value="14059">Hummingbird</option>
+                                <option value="6014">Husky</option>
+                                <option value="6035">Hyena</option>
+                                <option value="7004">Iguana</option>
+                                <option value="14060">Impala</option>
+                                <option value="6013">Jackal</option>
+                                <option value="6023">Jaguar</option>
+                                <option value="6038">Kangaroo</option>
+                                <option value="14061">Kangaroo Mouse</option>
+                                <option value="14062">Kangaroo Rat</option>
+                                <option value="14063">Kinkajou</option>
+                                <option value="14064">Kit Fox</option>
+                                <option value="6039">Koala</option>
+                                <option value="14065">Kodiak Bear</option>
+                                <option value="14066">Komodo Dragon</option>
+                                <option value="14067">Labrador</option>
+                                <option value="6056">Lemur</option>
+                                <option value="6024">Leopard</option>
+                                <option value="14068">Liger</option>
+                                <option value="14069">Linsang</option>
+                                <option value="6025">Lion</option>
+                                <option value="7005">Lizard</option>
+                                <option value="6036">Llama</option>
+                                <option value="14070">Lobster</option>
+                                <option value="14071">Longhair Cat</option>
+                                <option value="6026">Lynx</option>
+                                <option value="14072">Magpie</option>
+                                <option value="14073">Maine Coon</option>
+                                <option value="14074">Malamute</option>
+                                <option value="14075">Mammal - Feline</option>
+                                <option value="14076">Mammal - Herd</option>
+                                <option value="14077">Mammal - Marsupial</option>
+                                <option value="14078">Mammal - Mustelid</option>
+                                <option value="14079">Mammal - Other Predator</option>
+                                <option value="14080">Mammal - Prey</option>
+                                <option value="14081">Mammal - Primate</option>
+                                <option value="14082">Mammal - Rodent</option>
+                                <option value="14083">Manatee</option>
+                                <option value="14084">Mandrill</option>
+                                <option value="14085">Maned Wolf</option>
+                                <option value="8004">Mantid</option>
+                                <option value="14086">Marmoset</option>
+                                <option value="14087">Marten</option>
+                                <option value="6043">Meerkat</option>
+                                <option value="6048">Mink</option>
+                                <option value="14088">Mole</option>
+                                <option value="6044">Mongoose</option>
+                                <option value="14089">Monitor Lizard</option>
+                                <option value="6057">Monkey</option>
+                                <option value="14090">Moose</option>
+                                <option value="14091">Moth</option>
+                                <option value="6065">Mouse</option>
+                                <option value="14092">Musk Deer</option>
+                                <option value="14093">Musk Ox</option>
+                                <option value="1002">Newt</option>
+                                <option value="6027">Ocelot</option>
+                                <option value="14094">Octopus</option>
+                                <option value="14095">Okapi</option>
+                                <option value="14096">Olingo</option>
+                                <option value="6037">Opossum</option>
+                                <option value="14097">Orangutan</option>
+                                <option value="14098">Orca</option>
+                                <option value="14099">Oryx</option>
+                                <option value="14100">Ostrich</option>
+                                <option value="6047">Otter</option>
+                                <option value="3009">Owl</option>
+                                <option value="6052">Panda</option>
+                                <option value="14101">Pangolin</option>
+                                <option value="6028">Panther</option>
+                                <option value="14102">Parakeet</option>
+                                <option value="14103">Parrot / Macaw</option>
+                                <option value="14104">Peacock</option>
+                                <option value="14105">Penguin</option>
+                                <option value="14106">Persian Cat</option>
+                                <option value="6053">Pig / Swine</option>
+                                <option value="14107">Pigeon</option>
+                                <option value="14108">Pika</option>
+                                <option value="14109">Pine Marten</option>
+                                <option value="14110">Platypus</option>
+                                <option value="14111">Polar Bear</option>
+                                <option value="6073">Pony</option>
+                                <option value="14112">Poodle</option>
+                                <option value="14113">Porcupine</option>
+                                <option value="2004">Porpoise</option>
+                                <option value="14114">Procyonid</option>
+                                <option value="14115">Puffin</option>
+                                <option value="6040">Quoll</option>
+                                <option value="6059">Rabbit / Hare</option>
+                                <option value="6060">Raccoon</option>
+                                <option value="6061">Rat</option>
+                                <option value="14116">Ray</option>
+                                <option value="14117">Red Fox</option>
+                                <option value="6062">Red Panda</option>
+                                <option value="14118">Reindeer</option>
+                                <option value="14119">Reptillian</option>
+                                <option value="6063">Rhinoceros</option>
+                                <option value="14120">Robin</option>
+                                <option value="14121">Rottweiler</option>
+                                <option value="14122">Sabercats</option>
+                                <option value="14123">Sabertooth</option>
+                                <option value="1003">Salamander</option>
+                                <option value="8005">Scorpion</option>
+                                <option value="14124">Seagull</option>
+                                <option value="14125">Seahorse</option>
+                                <option value="6068">Seal</option>
+                                <option value="14126">Secretary Bird</option>
+                                <option value="4003">Serpent Dragon</option>
+                                <option value="14127">Serval</option>
+                                <option value="2006">Shark</option>
+                                <option value="14128">Sheep</option>
+                                <option value="14129">Shiba Inu</option>
+                                <option value="14130">Shorthair Cat</option>
+                                <option value="14131">Shrew</option>
+                                <option value="14132">Siamese</option>
+                                <option value="14133">Sifaka</option>
+                                <option value="14134">Silver Fox</option>
+                                <option value="6069">Skunk</option>
+                                <option value="14135">Sloth</option>
+                                <option value="14136">Snail</option>
+                                <option value="7006">Snake / Serpent</option>
+                                <option value="14137">Snow Leopard</option>
+                                <option value="14138">Sparrow</option>
+                                <option value="14139">Squid</option>
+                                <option value="6070">Squirrel</option>
+                                <option value="14140">Stoat</option>
+                                <option value="14141">Stork</option>
+                                <option value="14142">Sugar Glider</option>
+                                <option value="14143">Sun Bear</option>
+                                <option value="3011">Swan</option>
+                                <option value="14144">Swift Fox</option>
+                                <option value="5022">Tanuki</option>
+                                <option value="14145">Tapir</option>
+                                <option value="14146">Tasmanian Devil</option>
+                                <option value="14147">Thylacine</option>
+                                <option value="6029">Tiger</option>
+                                <option value="14148">Toucan</option>
+                                <option value="7007">Turtle / Tortoise</option>
+                                <option value="14149">Vulture</option>
+                                <option value="6041">Wallaby</option>
+                                <option value="14150">Walrus</option>
+                                <option value="14151">Wasp</option>
+                                <option value="6049">Weasel</option>
+                                <option value="2003">Whale</option>
+                                <option value="6016">Wolf</option>
+                                <option value="6050">Wolverine</option>
+                                <option value="6071">Zebra</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="field-wrap">
+                        <label class="field-label">Рейтинг</label>
+                        <div class="rating-group" id="mRatingGroup">
+                            <label class="rating-btn"><input type="radio" name="mrating" value="0"> 🟢 G</label>
+                            <label class="rating-btn"><input type="radio" name="mrating" value="2"> 🟡 M</label>
+                            <label class="rating-btn"><input type="radio" name="mrating" value="1"> 🔴 A</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row2">
+                    <div class="field-wrap">
+                        <label class="field-label">Папка</label>
+                        <input type="text" id="mFolder" placeholder="Назва або порожньо">
+                    </div>
+                    <div class="field-wrap">
+                        <label class="field-label">Параметри</label>
+                        <div style="display:flex;flex-direction:column;gap:8px;padding-top:4px">
+                            <label class="check-label"><input type="checkbox" id="mScraps"> <span>📦 Scraps</span></label>
+                            <label class="check-label"><input type="checkbox" id="mLockComments"> <span>🔇 Вимкнути коменти</span></label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost btn-sm" id="modalCancel">Скасувати</button>
+                <button class="btn btn-success btn-sm" id="modalSave">💾 Зберегти</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/i18n.js"></script>
+    <script src="scripts/popup.js"></script>
+</body>
+</html>

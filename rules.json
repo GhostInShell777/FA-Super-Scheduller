@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "origin",
+          "operation": "set",
+          "value": "https://www.furaffinity.net"
+        },
+        {
+          "header": "referer",
+          "operation": "set",
+          "value": "https://www.furaffinity.net/submit/"
+        },
+        {
+          "header": "sec-fetch-site",
+          "operation": "set",
+          "value": "same-origin"
+        },
+        {
+          "header": "sec-fetch-mode",
+          "operation": "set",
+          "value": "navigate"
+        },
+        {
+          "header": "sec-fetch-dest",
+          "operation": "set",
+          "value": "document"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "furaffinity.net/submit/upload/",
+      "resourceTypes": [ "xmlhttprequest", "fetch", "main_frame", "sub_frame" ]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "sec-fetch-site",
+          "operation": "set",
+          "value": "same-origin"
+        },
+        {
+          "header": "sec-fetch-mode",
+          "operation": "set",
+          "value": "navigate"
+        },
+        {
+          "header": "sec-fetch-dest",
+          "operation": "set",
+          "value": "document"
+        },
+        {
+          "header": "referer",
+          "operation": "set",
+          "value": "https://www.furaffinity.net/"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "furaffinity.net/submit/",
+      "resourceTypes": [ "xmlhttprequest", "fetch", "main_frame", "sub_frame" ],
+      "excludedUrlFilters": [ "furaffinity.net/submit/upload/", "furaffinity.net/submit/finalize/" ]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "origin",
+          "operation": "set",
+          "value": "https://www.furaffinity.net"
+        },
+        {
+          "header": "referer",
+          "operation": "set",
+          "value": "https://www.furaffinity.net/submit/upload/"
+        },
+        {
+          "header": "sec-fetch-site",
+          "operation": "set",
+          "value": "same-origin"
+        },
+        {
+          "header": "sec-fetch-mode",
+          "operation": "set",
+          "value": "navigate"
+        },
+        {
+          "header": "sec-fetch-dest",
+          "operation": "set",
+          "value": "document"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "furaffinity.net/submit/finalize/",
+      "resourceTypes": [ "xmlhttprequest", "fetch", "main_frame", "sub_frame" ]
+    }
+  }
+]

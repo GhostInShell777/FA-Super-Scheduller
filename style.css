@@ -1,0 +1,148 @@
+﻿body {
+    width: 600px; /* Ширина попапу */
+    height: 550px; /* Висота попапу */
+    margin: 0;
+    background-color: #1e2a35;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-container {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+h3 {
+    color: #ffab52;
+    margin-top: 0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #2e3e4f;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #444;
+}
+
+input, textarea {
+    background: #1e2a35;
+    border: 1px solid #ffab52;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+textarea {
+    height: 60px;
+    resize: none;
+}
+
+.file-upload label {
+    display: block;
+    padding: 10px;
+    background: #444;
+    text-align: center;
+    border: 2px dashed #ffab52;
+    cursor: pointer;
+}
+
+.primary-btn {
+    background: #ffab52;
+    color: #2e3e4f;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.scroll-box {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-top: 10px;
+    background: #161d25;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.queue-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    padding: 8px 0;
+}
+
+.queue-info b {
+    color: #ffab52;
+}
+
+.danger-btn {
+    background: #c0392b;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+#fa-scheduler-container {
+    background: #2e3e4f;
+    color: #fff;
+    padding: 15px;
+    border: 2px solid #ffab52;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.queue-item {
+    background: #23313f;
+    border: 1px solid #4e5e6f;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    position: relative; /* Для позиціонування хрестика */
+}
+
+/* Той самий хрестик видалення рядка */
+.remove-item {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+    .remove-item:hover {
+        color: #ff8888;
+    }
+
+.edit-fields input, .edit-fields textarea, .edit-fields select {
+    width: 100%;
+    background: #1e2a35;
+    color: #ffab52;
+    border: 1px solid #ffab52;
+    margin-bottom: 4px;
+    padding: 4px;
+    font-size: 12px;
+}
+
+.tab-content {
+    max-height: none !important; /* Прибирає жорстке обмеження висоти */
+    overflow: visible !important; /* Дозволяє випадаючим спискам виходити за межі блоку */
+}
+
+.tab-panel {
+    max-height: none !important; /* Дозволяє панелі розтягуватися під контент */
+    overflow: visible !important; /* Гарантує, що контент не буде обрізаний */
+}
