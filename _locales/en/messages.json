@@ -1,0 +1,242 @@
+{
+  "ext_name": {
+    "message": "FA Super Scheduler PRO"
+  },
+  "ext_description": {
+    "message": "Scheduled publishing tool for FurAffinity"
+  },
+  "tab_add": {
+    "message": "➕ Add"
+  },
+  "tab_queue": {
+    "message": "📋 Queue"
+  },
+  "tab_settings": {
+    "message": "⚙️ Options"
+  },
+  "header_idle": {
+    "message": "⏸ Idle"
+  },
+  "header_running": {
+    "message": "▶ Running"
+  },
+  "label_title": {
+    "message": "Title"
+  },
+  "label_desc": {
+    "message": "Description"
+  },
+  "label_keywords": {
+    "message": "Keywords"
+  },
+  "label_category": {
+    "message": "Category"
+  },
+  "label_theme": {
+    "message": "Theme"
+  },
+  "label_species": {
+    "message": "Species"
+  },
+  "label_gender": {
+    "message": "Gender"
+  },
+  "label_rating": {
+    "message": "Rating"
+  },
+  "label_folder": {
+    "message": "New Folder"
+  },
+  "label_params": {
+    "message": "Options"
+  },
+  "label_gap": {
+    "message": "Delay between uploads"
+  },
+  "hint_title_max": {
+    "message": "(max 60)"
+  },
+  "hint_keywords": {
+    "message": "(space-separated, min 3)"
+  },
+  "hint_gender": {
+    "message": "(→ keywords)"
+  },
+  "hint_folder": {
+    "message": "FA will create a new folder"
+  },
+  "hint_drop": {
+    "message": "Click or drag files here"
+  },
+  "opt_scraps": {
+    "message": "📦 Scraps"
+  },
+  "opt_comments": {
+    "message": "🔇 Disable Comments"
+  },
+  "rating_general": {
+    "message": "🟢 General"
+  },
+  "rating_mature": {
+    "message": "🟡 Mature"
+  },
+  "rating_adult": {
+    "message": "🔴 Adult"
+  },
+  "btn_add_queue": {
+    "message": "➕ ADD TO QUEUE"
+  },
+  "btn_start": {
+    "message": "▶ Start"
+  },
+  "btn_pause": {
+    "message": "⏸ Pause"
+  },
+  "btn_clear": {
+    "message": "🗑"
+  },
+  "btn_schedule": {
+    "message": "📅 Confirm"
+  },
+  "btn_cancel_schedule": {
+    "message": "✕ Cancel"
+  },
+  "btn_save": {
+    "message": "💾 Save"
+  },
+  "btn_cancel": {
+    "message": "Cancel"
+  },
+  "btn_options": {
+    "message": "⚙️"
+  },
+  "scheduler_title": {
+    "message": "Schedule start"
+  },
+  "scheduler_none": {
+    "message": "not scheduled"
+  },
+  "scheduler_warn": {
+    "message": "⚠️ Not recommended to schedule more than 1 day ahead — browser sleep behavior is unpredictable."
+  },
+  "scheduler_label": {
+    "message": "Start date and time"
+  },
+  "queue_empty": {
+    "message": "🌙 Queue is empty. Add files in the \"Add\" tab."
+  },
+  "queue_title": {
+    "message": "Queue"
+  },
+  "modal_edit_title": {
+    "message": "Edit"
+  },
+  "gap_35s": {
+    "message": "35 seconds (minimum)"
+  },
+  "gap_45s": {
+    "message": "45 seconds (recommended)"
+  },
+  "gap_1m": {
+    "message": "1 minute"
+  },
+  "gap_2m": {
+    "message": "2 minutes"
+  },
+  "gap_5m": {
+    "message": "5 minutes"
+  },
+  "gap_10m": {
+    "message": "10 minutes"
+  },
+  "gap_30m": {
+    "message": "30 minutes"
+  },
+  "gap_1h": {
+    "message": "1 hour"
+  },
+  "warn_no_files": {
+    "message": "Select files first!"
+  },
+  "warn_title_long": {
+    "message": "Title exceeds 60 characters!"
+  },
+  "warn_tags_long": {
+    "message": "Keywords exceed 500 characters!"
+  },
+  "warn_tags_min": {
+    "message": "FA requires at least 3 keywords!"
+  },
+  "warn_desc_long": {
+    "message": "Description exceeds 65000 characters!"
+  },
+  "warn_no_rating": {
+    "message": "Please select a rating!"
+  },
+  "warn_duplicate": {
+    "message": "already in queue."
+  },
+  "warn_corrupt": {
+    "message": "corrupted file."
+  },
+  "warn_empty_file": {
+    "message": "file is empty!"
+  },
+  "warn_added": {
+    "message": "Added"
+  },
+  "warn_go_queue": {
+    "message": "Go to \"Queue\" → \"Start\"."
+  },
+  "warn_silly": {
+    "message": "SILLY CREATURE ALERT"
+  },
+  "warn_stop": {
+    "message": "STOP RIGHT THERE!\n\n"
+  },
+  "opt_page_title": {
+    "message": "Settings — FA Super Scheduler PRO"
+  },
+  "opt_heading": {
+    "message": "⚙️ Settings"
+  },
+  "opt_lang": {
+    "message": "Interface Language"
+  },
+  "opt_signature": {
+    "message": "Append signature to description"
+  },
+  "opt_signature_hint": {
+    "message": "Adds \"Uploaded via FA Super Scheduler\" and a GitHub link at the end of every description."
+  },
+  "opt_min_gap": {
+    "message": "Minimum pause between uploads (sec, min 40)"
+  },
+  "opt_max_attempts": {
+    "message": "Max upload attempts (default: 3)"
+  },
+  "opt_danger_zone": {
+    "message": "🔴 Danger Zone"
+  },
+  "opt_clear_queue": {
+    "message": "Clear Queue"
+  },
+  "opt_clear_all": {
+    "message": "Reset All Data"
+  },
+  "opt_save": {
+    "message": "💾 Save Settings"
+  },
+  "opt_saved": {
+    "message": "✅ Saved!"
+  },
+  "opt_confirm_clear_queue": {
+    "message": "Delete the entire queue?"
+  },
+  "opt_confirm_clear_all": {
+    "message": "Reset ALL extension data? This cannot be undone!"
+  },
+  "hint_folder_placeholder": {
+    "message": "Name or leave empty"
+  }
+}
