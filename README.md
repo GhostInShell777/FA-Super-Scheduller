@@ -4,7 +4,7 @@ So, it begins! **FA Super Scheduler PRO** is a specialized browser extension for
 
 ---
 
-## 🚀 How to Install (The "Do It Yourself" Way)
+## 🦊 How to Install (The "Do It Yourself" Way)
 
 Since this project is still in its "active brain-rot" development phase and isn't on the Chrome Web Store yet, you’ve gotta do it manually. Don’t worry, it’s easy!
 
@@ -18,7 +18,7 @@ Since this project is still in its "active brain-rot" development phase and isn'
 
 ---
 
-## 📋 What’s Inside? (About the Project)
+## 🦊 What’s Inside? (About the Project)
 
 **FA Super Scheduler PRO** is basically my love letter to artists who are tired of manual uploads. It solves that annoying "I have to be awake at 3 AM to post for my US audience" problem. 
 
@@ -43,7 +43,7 @@ The extension uses **Manifest V3** and is split into three layers.
 
 ---
 
-## 🛡️ The "Secret Sauce": Bypassing CSP
+## 🦊 Bypassing CSP
 
 > **Observation on Security:**
 > *Mlya*, the **CSP (Content Security Policy)** on FurAffinity is a real headache if you try to do everything from the background. **Oтак**, here is how I fixed it: 
